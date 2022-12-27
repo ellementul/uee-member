@@ -1,5 +1,5 @@
 const { EventFactory, Types } = require('uee')
-const { LIMIT } = require('timecount')
+const { LIMIT } = require('@ellementul/timecount')
 const type = Types.Object.Def({
   system: "Timing",
   entity: "Time",

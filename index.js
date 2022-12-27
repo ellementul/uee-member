@@ -1,5 +1,5 @@
 const { Member } = require('uee')
-const { Time } = require('timecount')
+const { Time } = require('@ellementul/timecount')
 
 const startEvent = require('./events/start_event')
 const timeEvent = require('./events/time_event')
