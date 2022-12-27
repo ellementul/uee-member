@@ -1,6 +1,6 @@
 {
   "name": "ueetimeticker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "jest": "^29.3.1"
   },
   "dependencies": {
-    "timecount": "github:ellementul/TimeCount",
+    "@ellementul/timecount": "^0.8.2",
     "uee": "github:ellementul/UEE"
   }
 }
