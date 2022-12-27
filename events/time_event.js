@@ -4,7 +4,7 @@ const type = Types.Object.Def({
   system: "Timing",
   entity: "Time",
   state: {
-    timemark: Types.Array.Def(Types.Index.Def(LIMIT), 2, false)
+    timemark: [Types.Index.Def(LIMIT), Types.Index.Def(LIMIT)]
   }
 }, true)
 module.exports = EventFactory(type)
