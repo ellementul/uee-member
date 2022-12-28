@@ -12,12 +12,15 @@ class Ticker extends Member {
     this._timeout = 200
   }
   start () {
-    setInterval(() => this.send(timeEvent, {
+    this._timer = setInterval(() => this.send(timeEvent, {
       state: {
         timemark: this._timemark.toArray(),
         UTC: (new Date).toUTCString() 
       }
     }), this._timeout)
+  }
+  reset () {
+    clearInterval(this._timer)
   }
 }
 

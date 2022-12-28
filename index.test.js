@@ -24,4 +24,24 @@ describe('Ticker', () => {
 
     expect(timeCallback).toHaveBeenCalled();
   });
+  test('reset ticker', () => {
+    jest.useFakeTimers();
+
+    const provider = new Provider
+    const ticker = new Ticker
+    ticker.setProvider(provider)
+
+    const timeEvent = require('./events/time_event')
+    const timeCallback = jest.fn(() => {
+      ticker.reset()
+    })
+    provider.onEvent(timeEvent, timeCallback)
+
+    const startEvent = require('./events/start_event')
+    provider.sendEvent(startEvent.create())
+
+    jest.runOnlyPendingTimers();
+
+    expect(timeCallback).toHaveBeenCalledTimes(1);
+  });
 });
