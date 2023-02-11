@@ -1,4 +1,4 @@
-const { Provider } = require('uee')
+const { Provider } = require('@ellementul/uee-core')
 const { Ticker } = require('./index')
 
 describe('Ticker', () => {
