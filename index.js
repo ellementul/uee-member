@@ -26,6 +26,8 @@ class Ticker extends Member {
 
 module.exports = { 
   Ticker,
-  startEvent: require('./events/start_event'),
-  timeEvent: require('./events/time_event')
+  events: {
+    start: require('./events/start_event'),
+    time: require('./events/time_event')
+  }
 }
