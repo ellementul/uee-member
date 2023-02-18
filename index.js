@@ -1,35 +1,28 @@
 const { Member } = require('@ellementul/uee-core')
-const { Time } = require('@ellementul/timecount')
 
-const startEvent = require('./events/start_event')
-const timeEvent = require('./events/time_event')
-class Ticker extends Member {
+const outsideEvent = require('./events/outside_event')
+const yourEvent = require('./events/your_event')
+class YourMember extends Member {
   constructor() {
     super()
 
-    this.onEvent(startEvent, () => this.start())
-    this._timemark = new Time
-    this._timeout = 200
+    this.onEvent(outsideEvent, () => this.callback()) // Subscribing on event
     
-    this.role = "Ticker"
+    this.role = "DefaultMemberRole" // The manager needs it, and manager can change it
   }
-  start () {
-    this._timer = setInterval(() => this.send(timeEvent, {
-      state: {
-        timemark: this._timemark.toArray(),
-        UTC: (new Date).toUTCString() 
-      }
-    }), this._timeout)
-  }
-  reset () {
-    clearInterval(this._timer)
+
+  callback () {
+    this.send(yourEvent, {
+      state: "NewYourStateOfYourEntity" // Fill the state property in the event
+      // If we don't fill the property, this property will be random.
+    })
   }
 }
 
 module.exports = { 
-  Ticker,
-  events: {
-    start: require('./events/start_event'),
-    time: require('./events/time_event')
+  YourMember, // Export of your member
+  events: { // Export of your events
+    // outside: outsideEvent, // We don't export outside events!
+    your: yourEvent
   }
 }

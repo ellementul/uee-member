@@ -1,19 +1,26 @@
-# UEE Time Ticker
+# UEE Member Template
 
 ## Description
-This module is part of the counting time system in UEE.
+It is a template to create a new member class.
 
-#### The module run by start event:
-```js
-  const { 
-    events: { start } 
-  } = require("@ellementul/uee-timeticker") 
+## Dir structure
+```
+├── index.js # entrypoint of your module
+├── index.test.js # tests for your module
+└── events
+    ├── outside_event.js # your member listens to this event
+    └── your_event.js    # your member triggers this event
 ```
 
-#### The module generate time event every tick:
-```js
-  const { 
-    events: { time } 
-  } = require("@ellementul/uee-timeticker")
+## Commands
+### Install dependencies:
+```bash
+$ npm i
 ```
+#### Run tests:
+```bash
+$ npm test
+```
+
+All files with the template name "*.test.js" will be run.
 

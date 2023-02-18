@@ -1,47 +1,30 @@
 const { Provider } = require('@ellementul/uee-core')
-const { Ticker } = require('./index')
+const { YourMember } = require('./index')
 
-describe('Ticker', () => {
+describe('YourMember', () => {
+
   test('constructor', () => {
-    const ticker = new Ticker
-    expect(ticker).toBeDefined();
+    const yourMember = new YourMember
+    expect(yourMember).toBeDefined();
   });
-  test('run ticker', () => {
-    jest.useFakeTimers();
 
+  test('trigger event', () => {
+
+    // Member connect to test provider
     const provider = new Provider
-    const ticker = new Ticker
-    ticker.setProvider(provider)
+    const yourMember = new YourMember
+    yourMember.setProvider(provider)
 
-    const timeEvent = require('./events/time_event')
-    const timeCallback = jest.fn()
-    provider.onEvent(timeEvent, timeCallback)
+    // Subscribe to testing event
+    const yourEvent = require('./events/your_event')
+    const yourEventCallback = jest.fn()
+    provider.onEvent(yourEvent, yourEventCallback)
 
-    const startEvent = require('./events/start_event')
-    provider.sendEvent(startEvent.create())
+    // Run the event to has to run the testing event
+    const outsideEvent = require('./events/outside_event')
+    provider.sendEvent(outsideEvent.create())
 
-    jest.runOnlyPendingTimers();
-
-    expect(timeCallback).toHaveBeenCalled();
-  });
-  test('reset ticker', () => {
-    jest.useFakeTimers();
-
-    const provider = new Provider
-    const ticker = new Ticker
-    ticker.setProvider(provider)
-
-    const timeEvent = require('./events/time_event')
-    const timeCallback = jest.fn(() => {
-      ticker.reset()
-    })
-    provider.onEvent(timeEvent, timeCallback)
-
-    const startEvent = require('./events/start_event')
-    provider.sendEvent(startEvent.create())
-
-    jest.runOnlyPendingTimers();
-
-    expect(timeCallback).toHaveBeenCalledTimes(1);
+    // Check calling of the testing event
+    expect(yourEventCallback).toHaveBeenCalled();
   });
 });
