@@ -1,7 +1,8 @@
-const { Member } = require('@ellementul/uee-core')
+import { Member } from '@ellementul/united-events-environment'
 
-const outsideEvent = require('./events/outside_event')
-const yourEvent = require('./events/your_event')
+import outsideEvent from './events/outside_event.js'
+import yourEvent from './events/your_event.js'
+
 class YourMember extends Member {
   constructor() {
     super()
@@ -19,10 +20,12 @@ class YourMember extends Member {
   }
 }
 
-module.exports = { 
+const exportEvents = { // Export of your events
+  // outside: outsideEvent, // We don't export outside events!
+  your: yourEvent
+}
+
+export {
   YourMember, // Export of your member
-  events: { // Export of your events
-    // outside: outsideEvent, // We don't export outside events!
-    your: yourEvent
-  }
+  exportEvents as events
 }

@@ -1,30 +1,32 @@
-const { Provider } = require('@ellementul/uee-core')
-const { YourMember } = require('./index')
+import test from 'ava'
+import sinon from 'sinon'
 
-describe('YourMember', () => {
+import { Provider } from '@ellementul/united-events-environment'
+import { YourMember } from './index.js'
 
-  test('constructor', () => {
-    const yourMember = new YourMember
-    expect(yourMember).toBeDefined();
-  });
+import yourEvent from './events/your_event.js'
+import outsideEvent from './events/outside_event.js'
 
-  test('trigger event', () => {
+test('constructor of YourMember', t => {
+  const yourMember = new YourMember
+  t.truthy(yourMember)
+})
 
-    // Member connect to test provider
-    const provider = new Provider
-    const yourMember = new YourMember
-    yourMember.setProvider(provider)
+test('trigger event of YourMember', t => {
 
-    // Subscribe to testing event
-    const yourEvent = require('./events/your_event')
-    const yourEventCallback = jest.fn()
-    provider.onEvent(yourEvent, yourEventCallback)
+  // Member connect to test provider
+  const provider = new Provider
+  const yourMember = new YourMember
+  yourMember.setProvider(provider)
 
-    // Run the event to has to run the testing event
-    const outsideEvent = require('./events/outside_event')
-    provider.sendEvent(outsideEvent.create())
+  // Subscribe to testing event
+  
+  const yourEventCallback = sinon.fake()
+  provider.onEvent(yourEvent, yourEventCallback)
 
-    // Check calling of the testing event
-    expect(yourEventCallback).toHaveBeenCalled();
-  });
+  // Run the event to has to run the testing event
+  provider.sendEvent(outsideEvent.create())
+
+  // Check calling of the testing event
+  t.truthy(yourEventCallback.calledOnce);
 });
